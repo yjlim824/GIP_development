@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+    <title>.</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=t0gdynkrzk&amp;submodules=panorama,geocoder,drawing,visualization"></script>
+	<style>
+		.buttons {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1000;
+			padding: 5;
+		}
+
+		.buttons .control-btn {
+			/* margin: 10px 2px 2px 10px;
+			color : darkblue;
+			border-radius: 5px;
+			cursor: pointer;
+			padding : 10px; */
+			border-radius: 10px;    
+			border: 0;
+			padding: 5.5px 25px;
+			margin : 4.8px;
+			display: inline-block;
+			text-align: center;
+			font-weight: bold;
+			font-size:12pt;
+			color: white;
+			background: rgba(117,166,252,0.99);
+      box-shadow: 0px 4px 0px rgba(168,179,202,1);
+		}
+
+		.control-btn:hover {
+			top: 4px; 
+    	box-shadow: 0 0 gray; 
+    	background: rgba(168,179,202,0.8);	
+		}
+
+		.button {    
+    border-radius: 10px;    
+    border: 0;
+    padding: 5.5px 25px;
+    margin : 4.8px;
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+    font-size:12pt;
+    color: white;
+    
+    background: rgba(117,166,252,0.99);
+    box-shadow: 0px 4px 0px rgba(168,179,202,1);
+  }
+	</style>
+</head>
+<body>
+<div id="map" style="width:100%; height:800px;">
+	<div class="buttons">
+		<input id="toZonePos1" type="button" value="용궁시장" class="control-btn" />
+		<input id="toZonePos2" type="button" value="바다케이블카 & 삼천포대교공원" class="control-btn" />
+		<input id="toZonePos3" type="button" value="바다케이블카(각산전망대)" class="control-btn" />
+		<input id="toZonePos4" type="button" value="항공우주과학관" class="control-btn" />
+		<input id="toZonePos5" type="button" value="팔포음식특화거리" class="control-btn" />
+		<input id="toZonePos6" type="button" value="삼천포중앙시장" class="control-btn" />
+		<input id="toZonePos7" type="button" value="용두공원" class="control-btn" />
+		<input id="toZonePos8" type="button" value="별주부전테마파크" class="control-btn" />
+		<input id="toZonePos9" type="button" value="남일대해수욕장" class="control-btn" />
+		<input id="toZonePos10" type="button" value="부잔교갯벌탐방로" class="control-btn" />
+		<input id="toZonePos11" type="button" value="대포항" class="control-btn" />
+		<input id="toZonePos12" type="button" value="초양정류장" class="control-btn" />
+		<input id="toZonePos13" type="button" value="다솔사입구" class="control-btn" />
+		<input id="toZonePos14" type="button" value="수양공원" class="control-btn" />
+
+	</div>
+</div>
+   <script>
+
+		$("#toZonePos1").on("click", function(e) {
+			e.preventDefault();
+			map.panTo(zonePos1);
+		});
+
+		$("#toZonePos2").on("click", function(e) {
+			e.preventDefault();
+			map.panTo(zonePos2);
+		});
+
+		$("#toZonePos3").on("click", function(e) {
+			e.preventDefault();
+			map.panTo(zonePos3);
+		});
+
+		$("#toZonePos4").on("click", function(e) {
+			e.preventDefault();
+			map.panTo(zonePos4);
+		});
+
+		$("#toZonePos5").on("click", function(e) {
+			e.preventDefault();
+			map.panTo(zonePos5);
+		});
+
+		$("#toZonePos6").on("click", function(e) {
+			e.preventDefault();
+			map.panTo(zonePos6);
+		});
+
+		$("#toZonePos7").on("click", function(e) {
+			e.preventDefault();
+			map.panTo(zonePos7);
+		});
+
+		$("#toZonePos8").on("click", function(e) {
+			e.preventDefault();
+			map.panTo(zonePos8);
+		});
+
+		$("#toZonePos9").on("click", function(e) {
+			e.preventDefault();
+			map.panTo(zonePos9);
+		});
+
+		$("#toZonePos10").on("click", function(e) {
+			e.preventDefault();
+			map.panTo(zonePos10);
+		});
+
+		$("#toZonePos11").on("click", function(e) {
+			e.preventDefault();
+			map.panTo(zonePos11);
+		});
+
+		$("#toZonePos12").on("click", function(e) {
+			e.preventDefault();
+			map.panTo(zonePos12);
+		});
+
+		$("#toZonePos13").on("click", function(e) {
+			e.preventDefault();
+			map.panTo(zonePos13);
+		});
+
+		$("#toZonePos14").on("click", function(e) {
+			e.preventDefault();
+			map.panTo(zonePos14);
+		});
+
+
+		var BasePOS = new naver.maps.LatLng(34.92649, 128.07169);
+		var zonePos1 = new naver.maps.LatLng(34.92649, 128.07169);	// 사천용궁시장 1881 
+		var zonePos2 = new naver.maps.LatLng(34.93270, 128.05240);  // 사천바다케이블카(대방정류장) 1883
+		var zonePos3 = new naver.maps.LatLng(34.943419, 128.058014);  // 각산전망대
+		var zonePos4 = new naver.maps.LatLng(35.070438, 128.06318);  // 항공우주과학관
+		var zonePos5 = new naver.maps.LatLng(34.9246577,128.0758192);  // 팔포음식특화거리
+		var zonePos6 = new naver.maps.LatLng(34.929557, 128.076535);  // 삼천포중앙시장
+		var zonePos7 = new naver.maps.LatLng(34.957123, 128.090989);  // 용두공원
+		var zonePos8 = new naver.maps.LatLng(34.965679, 127.981804);  // 별주부전테마파크
+		var zonePos9 = new naver.maps.LatLng(34.92695, 128.097225);  // 남일대해수욕장
+		var zonePos10 = new naver.maps.LatLng(35.009388, 128.047247);  // 부잔교갯벌탐방로
+		var zonePos11 = new naver.maps.LatLng(34.989902, 128.041082);  // 대포
+		var zonePos12 = new naver.maps.LatLng(34.926412, 128.043858);  // 초양정류장
+		var zonePos13 = new naver.maps.LatLng(35.083411, 127.920872);  // 다솔사입구
+		var zonePos14 = new naver.maps.LatLng(35.084287, 128.094696);  // 수양공원
+
+		var mapOptions = {
+		    center: zonePos1,
+			draggable: true,
+			pinchZoom: true,
+            scrollWheel: true,
+            keyboardShortcuts: true,
+            disableDoubleTapZoom: true,
+            disableDoubleClickZoom: true,
+            disableTwoFingerTapZoom: true,
+		    zoom: 18,
+			minZoom: 18, //지도의 최소 줌 레벨
+			maxZoom: 18,
+		};
+
+		var map = new naver.maps.Map('map', mapOptions);
+		map.setMapTypeId(naver.maps.MapTypeId["NORMAL"]);
+
+		/*API변경*/
+		//var sendinfo = 'http://sacheonchallenge.toysmythiot.com:8000/apis/getHeatData';
+		//var sendinfo = 'http://54.180.158.22:8000/v1/Gasi/DeviceCountDay';
+		var sendinfo = 'http://182.31.214.16:8000/v1/Sacheon/DeviceCountHourly';
+
+		var CustomOverlay = null;
+
+		// 유동량 포인트를 저장하는 배열
+		var peopleposlist = new Array();
+
+		function fn_heatmap (data) {
+			//console.log(data);
+
+			var toZonePos1Ele = document.getElementById("toZonePos1");
+			var toZonePos2Ele = document.getElementById("toZonePos2");
+			var toZonePos3Ele = document.getElementById("toZonePos3");
+			var toZonePos4Ele = document.getElementById("toZonePos4");
+			var toZonePos5Ele = document.getElementById("toZonePos5");
+			var toZonePos6Ele = document.getElementById("toZonePos6");
+			var toZonePos7Ele = document.getElementById("toZonePos7");
+			var toZonePos8Ele = document.getElementById("toZonePos8");
+			var toZonePos9Ele = document.getElementById("toZonePos9");
+			var toZonePos10Ele = document.getElementById("toZonePos10");
+			var toZonePos11Ele = document.getElementById("toZonePos11");
+			var toZonePos12Ele = document.getElementById("toZonePos12");
+			var toZonePos13Ele = document.getElementById("toZonePos13");
+			var toZonePos14Ele = document.getElementById("toZonePos14");
+
+
+			
+				///존 이름 변경하기 2070-2077
+				var obj = [
+				// 사천용궁시장
+				{zone_id:'삼천포 용궁수산시장', weight:'0.8', lat : '34.926151', lng : '128.073464', data: '150'},	//1
+				{zone_id:'삼천포 용궁수산시장', weight:'0.8', lat : '34.927259', lng : '128.0723', data: '150'},	//1
+				{zone_id:'삼천포 용궁수산시장', weight:'0.8', lat : '34.927461', lng : '128.072091', data: '150'},	//1
+				{zone_id:'삼천포 용궁수산시장', weight:'0.8', lat : '34.926938', lng : '128.072568', data: '150'},	//1
+				{zone_id:'삼천포 용궁수산시장', weight:'0.8', lat : '34.927479', lng : '128.07149', data: '150'},	//1
+				{zone_id:'삼천포 용궁수산시장', weight:'0.8', lat : '34.927404', lng : '128.070423', data: '150'},	//1
+
+				// 사천바다케이블카
+				{zone_id:'바다케이블카', weight:'0.8', lat : '34.933901', lng : '128.05261', data: '150'},	// 1
+				{zone_id:'바다케이블카', weight:'0.8', lat : '34.934204', lng : '128.05272', data: '150'},	// 1
+				
+				// 사천 케이블카 각산전망대
+				{zone_id:'바다케이블카', weight:'0.8', lat : '34.943419', lng : '128.058014', data: '150'},	// 1
+				{zone_id:'바다케이블카', weight:'0.8', lat : '34.944188', lng : '128.057053', data: '150'},	// 1
+				
+				// 사천삼천포대교공원
+				{zone_id:'삼천포대교공원', weight:'0.8', lat : '34.933219', lng : '128.051158', data: '150'},	//1
+				{zone_id:'삼천포대교공원', weight:'0.8', lat : '34.932384', lng : '128.052338', data: '150'},	//1
+				{zone_id:'삼천포대교공원', weight:'0.8', lat : '34.932753', lng : '128.051694', data: '150'},	//1
+				{zone_id:'삼천포대교공원', weight:'0.8', lat : '34.931893', lng : '128.052339', data: '150'},	//1
+				{zone_id:'삼천포대교공원', weight:'0.8', lat : '34.933430', lng : '128.050375', data: '150'},	//1
+
+				// 항공우주과학관
+				{zone_id:'첨단 항공우주과학관', weight:'0.8', lat : '35.070438', lng : '128.06318', data: '150'},	//1
+
+				// 팔포음식특화거리
+				{zone_id:'팔포음식특화거리', weight:'0.8', lat : '34.923958', lng : '128.075604', data: '150'},	//1
+				{zone_id:'팔포음식특화거리', weight:'0.8', lat : '34.925815', lng : '128.076283', data: '150'},	//1
+
+				// 삼천포중앙시장
+				{zone_id:'삼천포중앙시장', weight:'0.8', lat : '34.929557', lng : '128.076535', data: '150'},	//1
+				{zone_id:'삼천포중앙시장', weight:'0.8', lat : '34.928964', lng : '128.075854', data: '150'},	//1
+				{zone_id:'삼천포중앙시장', weight:'0.8', lat : '34.929218', lng : '128.075219', data: '150'},	//1
+
+				// 용두공원
+				{zone_id:'용두공원', weight:'0.8', lat : '34.957123', lng : '128.090989', data: '150'},	//1
+				{zone_id:'용두공원', weight:'0.8', lat : '34.957999', lng : '128.092296', data: '150'},	//1
+
+				// 별주부전테마파크
+				{zone_id:'별주부전테마파크(입구)', weight:'0.8', lat : '34.965679', lng : '127.981804', data: '150'},	//1
+
+				// 남일대해수욕장
+				{zone_id:'남일대해수욕장', weight:'0.8', lat : '34.926950', lng : '128.097225', data: '150'},	//1
+				{zone_id:'남일대해수욕장', weight:'0.8', lat : '34.926895', lng : '128.096081', data: '150'},	//1
+
+				// 부잔교갯벌탐방로
+				{zone_id:'무지개빛 해안도로(부잔교갯벌탐방)', weight:'0.8', lat : '35.009388', lng : '128.047247', data: '150'},	//1
+
+				// 대포항
+				{zone_id:'무지개빛 해안도로(대포항)', weight:'0.8', lat : '34.989902', lng : '128.041082', data: '150'},	//1
+
+				// 초양정류장
+				{zone_id:'사천바다케이블카(초양정류장)', weight:'0.8', lat : '34.926412', lng : '128.043858', data: '150'},	//1
+
+				// 다솔사입구
+				{zone_id:'다솔사 입구(주차장)', weight:'0.8', lat : '35.083411', lng : '127.920872', data: '150'},	//1
+
+				// 수양공원
+				{zone_id:'수양공원', weight:'0.8', lat : '35.084287', lng : '128.094696', data: '150'},	//1
+
+
+
+				
+			]
+
+
+			// 맥스
+			var define_max = 100;
+
+			//존 별 데이터 값 넣기
+			for(var j of data){
+				for(var i of obj){
+					if (String(j.zone_id) === i.zone_id){
+						i.data = j.data;
+						console.log(i.zone_id,j.zone_id);
+					}
+					
+					
+				}
+			}
+			
+			console.log('obj', obj);
+
+			var mydata = [];
+			for(var i=0; i < obj.length; i++){
+				var calValue = ((obj[i].weight * obj[i].data) / define_max);
+				
+				if(calValue > 5){
+					calValue = 5;
+				}
+
+				mydata.push({
+					weight : calValue,
+					location : [obj[i].lng, obj[i].lat]
+				})
+			}
+
+			mydata.push({
+				weight : '1.1',
+				location : [0,0]
+			})
+
+			var heatmap = new naver.maps.visualization.HeatMap({
+				map: map,
+				data: mydata,
+				radius : 100,
+				opacity : '0.7',
+				colorMap : "PORTLAND",
+			});
+
+		}
+
+
+		function inits(){
+
+			$.getJSON(sendinfo, {}, function (data) {
+				if(data != null) { 
+					fn_heatmap(data);
+					console.log(data)
+				}
+			});
+		}
+
+
+		window.onload=function(){
+			inits();
+		}
+
+	</script>
+</body>
+</html>

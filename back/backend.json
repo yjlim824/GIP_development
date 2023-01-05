@@ -1,0 +1,10 @@
+{
+    "apps": [
+        {
+            "name": "backend",
+            "cwd": "/home/ub/Dash/back/",
+            "script": "npm",
+            "args" : "start"
+        }
+    ]
+}
